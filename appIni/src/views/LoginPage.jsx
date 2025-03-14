@@ -16,6 +16,27 @@ function LoginPage() {
     const [userCredenciais, setUserCredenciais] = useState({})
     const [error , setError] = useState('')
 
+    const dic_erros = {
+        'auth/email-already-in-use': "O email fornecido já está em uso.",
+        'auth/invalid-email': "Informe um email válido.",
+        'auth/operation-not-allowed': "Esta operação não é permitida, verifique as configurações.",
+        'auth/weak-password': "A senha fornecida é muito fraca.",
+        'auth/user-disabled': "A conta foi desativada.",
+        'auth/user-not-found': "Nenhum usuário encontrado com esse email.",
+        'auth/wrong-password': "A senha fornecida está incorreta.",
+        'auth/missing-email': "Informe um email válido.",
+        'auth/account-exists-with-different-credential': "A conta já existe com credenciais diferentes.",
+        'auth/credential-already-in-use': "As credenciais fornecidas já estão em uso.",
+        'auth/invalid-credential': "Credenciais inválidas fornecidas.",
+        'auth/requires-recent-login': "É necessário fazer login recentemente para realizar essa operação.",
+        'auth/too-many-requests': "Muitas tentativas de login. Tente novamente mais tarde.",
+        'auth/network-request-failed': "Falha na requisição de rede. Verifique sua conexão.",
+        'auth/timeout': "A solicitação excedeu o tempo limite. Tente novamente.",
+        'auth/configuration-not-found': "A configuração do provedor de autenticação não foi encontrada.",
+        'auth/missing-password': "Informe sua senha."
+    };
+    
+
     function handleCred(e){
         setUserCredenciais({...userCredenciais, [e.target.name]: e.target.value})
         //console.log(userCredenciais.email)
@@ -36,7 +57,7 @@ function LoginPage() {
             const errorCode = error.code;
             const errorMessage = error.message;
 
-            setError( errorMessage)
+            setError( dic_erros[errorCode]  || errorMessage)
             // ..
         }); 
     }
@@ -58,7 +79,7 @@ function LoginPage() {
             console.log(errorCode)
             console.log(errorMessage)
 
-            setError( errorMessage)
+            setError( dic_erros[errorCode]  || errorMessage)
 
             // ..
         }); 
